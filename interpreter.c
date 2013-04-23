@@ -20,7 +20,8 @@ char* load_command(char* statement) {
 void interpret(char* statement) {
 	statement = load_command(statement);
 	if(strcmp(command, "blink")) {
-		fork(&blink_main, 1, &statement);
+		void* thread = fork(&blink_main, 1, &statement);
+		wait_thread(thread);
 	}
 }
 

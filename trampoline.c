@@ -2,7 +2,6 @@
 
 //Provides a trampoline from C to MIPS
 
-
 void nop() {
 	asm(
 			"li $v0, 0\n"
@@ -17,7 +16,7 @@ void print_int(int value) {
 			"syscall\n"
 			: //no output
 			: "r" (value)
-			: "$a0", "$v0"
+			: "%a0", "%v0"
 	   );
 }
 
@@ -28,7 +27,7 @@ void print_float(float value) {
 			"syscall\n"
 			: //no output
 			: "r" (value)
-			: "$a0", "$v0"
+			: "%a0", "%v0"
 	   );
 }
 
@@ -39,7 +38,7 @@ void print_double(double value) {
 			"syscall\n"
 			: //no output
 			: "r" (value)
-			: "$a0", "$v0"
+			: "%a0", "%v0"
 	   );
 }
 
@@ -62,7 +61,7 @@ int read_int() {
 			"addi %0, $v0, 0x0\n"
 			: "=r" (value)
 			: //no input
-			: "$v0"
+			: "%v0"
 	   );
 	return value;
 }
@@ -75,7 +74,7 @@ float read_float() {
 			"addi %0, $v0, 0x0\n"
 			: "=r" (value)
 			: //no input
-			: "$v0"
+			: "%v0"
 	   );
 	return value;
 }
@@ -88,7 +87,7 @@ double read_double() {
 			"addi %0, $v0, 0x0\n"
 			: "=r" (value)
 			: //no input
-			: "$v0"
+			: "%v0"
 	   );
 	return value;
 }
@@ -101,7 +100,7 @@ void read_string(char* buffer, int size) {
 			"syscall\n"
 			: //no output
 			: "r" (buffer), "r" (size)
-			: "$a0", "$a1", "$v0"
+			: "%a0", "%a1", "%v0"
 	   );
 }
 
@@ -114,7 +113,7 @@ void* sbreak(int size) {
 			"addi %0, $v0, 0x0\n"
 			: "=r" (memory)
 			: "r" (size)
-			: "$a0", "$v0"
+			: "%a0", "%v0"
 	   );
 	return memory;
 }
@@ -136,7 +135,7 @@ void print_char(char value) {
 			"syscall\n"
 			: //no output
 			: "r" (value)
-			: "$a0", "$v0"
+			: "%a0", "%v0"
 	   );
 }
 
@@ -148,7 +147,7 @@ char read_char() {
 			"addi %0, $v0, 0x0\n"
 			: "=r" (value)
 			: // no input
-			: "$v0"
+			: "%v0"
 	   );
 	return value;
 }
@@ -160,7 +159,7 @@ void exit_2(int error) {
 			"syscall\n"
 			: //no output
 			: "r" (error)
-			: "$a0", "$v0"
+			: "%a0", "%v0"
 	   );
 }
 
@@ -168,7 +167,7 @@ void yield() {
 	asm(
 			"li $v0, 18\n"
 			"syscall\n"
-			: "$v0"
+			: "%v0"
 	   );
 }
 
@@ -179,7 +178,7 @@ void mutex_aquire(int* mutex) {
 			"syscall\n"
 			: //no output
 			: "r" (mutex)
-			: "$a0", "$v0"
+			: "%a0", "%v0"
 	   );
 }
 
@@ -190,7 +189,7 @@ void mutex_release(int* mutex) {
 			"syscall\n"
 			: //no output
 			: "r" (mutex)
-			: "$a0", "$v0"
+			: "%a0", "%v0"
 	   );
 }
 
@@ -224,7 +223,7 @@ void* spoon(int (*mips_main)(int, char**), int argc, char* argv[]) {
 			"syscall"
 			: "=r" (thread)
 			: "r" (&exodus), "r" (mips_main), "r" (argc), "r" (argv)
-			: "$a0", "$a1", "$a2", "$a3", "$v0"
+			: "%a0", "%a1", "%a2", "%a3", "%v0"
 	   );
 }
 
@@ -235,7 +234,7 @@ void mutex_init(int* mutex) {
 			"syscall\n"
 			: //no output
 			: "r" (mutex)
-			: "$a0", "$v0"
+			: "%a0", "%v0"
 	   );
 }
 
@@ -246,7 +245,7 @@ void wait_thread(void* thread) {
 			"syscall\n"
 			: //no output
 			: "r" (thread)
-			: "$a0", "$v0"
+			: "%a0", "%v0"
 	   );
 }
 

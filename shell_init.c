@@ -9,9 +9,7 @@ int shell_main(int argc, char* argv[]) {
 		print_string("=>");
 		read_string(buffer, 64);
 		interpret(buffer);
-		break;
 	}
-	for (;;);
 	return 0;
 }
 

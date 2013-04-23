@@ -57,7 +57,7 @@ int read_int() {
 	int value;
 	asm(
 			"li $v0, 5\n"
-			"syscall"
+			"syscall\n"
 			"addi %0, $v0, 0x0\n"
 			: "=r" (value)
 			: //no input
@@ -70,7 +70,7 @@ float read_float() {
 	float value;
 	asm(
 			"li $v0, 6\n"
-			"syscall"
+			"syscall\n"
 			"addi %0, $v0, 0x0\n"
 			: "=r" (value)
 			: //no input
@@ -83,7 +83,7 @@ double read_double() {
 	double value;
 	asm(
 			"li $v0, 7\n"
-			"syscall"
+			"syscall\n"
 			"addi %0, $v0, 0x0\n"
 			: "=r" (value)
 			: //no input
@@ -167,14 +167,16 @@ void yield() {
 	asm(
 			"li $v0, 18\n"
 			"syscall\n"
+			: // no output
+			: // no input
 			: "%v0"
 	   );
 }
 
-void mutex_aquire(int* mutex) {
+void mutex_acquire(int* mutex) {
 	asm(
 			"addi $a0, %0, 0x0\n"
-			"li $v0, 19\n"'
+			"li $v0, 19\n"
 			"syscall\n"
 			: //no output
 			: "r" (mutex)
@@ -214,17 +216,22 @@ void exodus() {
 
 //This expects a main function
 void* spoon(int (*mips_main)(int, char**), int argc, char* argv[]) {
+	void *thread;
+
 	asm(
-			"addi $a0, %0, 0x0\n"
-			"addi $a1, %1, 0x0\n"
-			"addi $a2, %2, 0x0\n"
-			"addi $a3, %3, 0x0\n"
+			"addi $a0, %1, 0x0\n"
+			"addi $a1, %2, 0x0\n"
+			"addi $a2, %3, 0x0\n"
+			"addi $a3, %4, 0x0\n"
 			"li $v0, 21\n"
-			"syscall"
+			"syscall\n"
+			"addi %0, $v0, 0x0\n"
 			: "=r" (thread)
 			: "r" (&exodus), "r" (mips_main), "r" (argc), "r" (argv)
 			: "%a0", "%a1", "%a2", "%a3", "%v0"
 	   );
+
+	return thread;
 }
 
 void mutex_init(int* mutex) {

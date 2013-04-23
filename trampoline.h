@@ -33,14 +33,14 @@ extern float read_float();
 extern double read_double();
 extern void read_string(char* buffer, int size);
 extern void* sbreak(int size); 
-extern void exit();
+extern void byebye();
 extern void print_char(char value);
 extern char read_char();
 extern void exit_2(int error);
 extern void yield();
 extern void mutex_aquire(int* mutex);
 extern void mutex_release(int* mutex);
-extern void* fork(int (*mips_main)(int, char**), int argc, char* argv[]);
+extern void* spoon(int (*mips_main)(int, char**), int argc, char* argv[]);
 extern void mutex_init(int* mutex);
 extern void wait_thread(void* thread);
 

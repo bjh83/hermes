@@ -2,7 +2,7 @@
 #include"stdlib.h"
 #include"blink.h"
 
-char* command[32];
+char command[32];
 
 char* load_command(char* statement) {
 	int length = len(statement);
@@ -10,17 +10,17 @@ char* load_command(char* statement) {
 	for(i = 0; i < length && statement[i] != ' '; i++) {
 		command[i] = statement[i];
 	};
+	command[i] = '\0';
 	if(i < length) {
 		i++;
 	}
-	command[i] = '\0';
 	return statement + i;
 }
 
 void interpret(char* statement) {
 	statement = load_command(statement);
 	if(strcmp(command, "blink")) {
-		void* thread = fork(&blink_main, 1, &statement);
+		void* thread = spoon(&blink_main, 1, &statement);
 		wait_thread(thread);
 	}
 }

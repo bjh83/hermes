@@ -1,7 +1,7 @@
 #include"trampoline.h"
 #include"interpreter.h"
 
-int mips_main(int argc, char* argv[]) {
+int shell_main(int argc, char* argv[]) {
 	char buffer[64];
 	print_string("Welcome to hydra!!!\n");
 	for(;;) {

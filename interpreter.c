@@ -2,6 +2,8 @@
 #include"stdlib.h"
 #include"blink.h"
 
+extern int say_main(int argc, char* argv[]);
+
 char command[32];
 
 char* load_command(char* statement) {
@@ -22,6 +24,8 @@ void interpret(char* statement) {
 	if(strcmp(command, "blink")) {
 		void* thread = spoon(&blink_main, 1, &statement);
 		wait_thread(thread);
+	} else if(strcmp(command, "say")) {
+		void* thread = spoon(&say_main, 1, &statement);
 	}
 }
 

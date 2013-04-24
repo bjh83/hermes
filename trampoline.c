@@ -256,3 +256,18 @@ void wait_thread(void* thread) {
 	   );
 }
 
+void write_chars_LED(char first, char second) {
+	int to_pass = first;
+	to_pass = to_pass << 8;
+	to_pass += second;
+
+	asm(
+			"addi $a0, %0, 0x0\n"
+			"li $v0, 24\n"
+			"syscall\n"
+			: //no output
+			: "r" (to_pass)
+			: "%a0", "%v0"
+	   );
+}
+

@@ -22,6 +22,7 @@
 #define CREATE_THREAD 21
 #define MUTEX_INIT 22
 #define KRNL_WAIT_FOR_THREAD 23
+#define WRITE_CHAR_LED 24
 
 extern void nop();
 extern void print_int(int value);
@@ -43,4 +44,4 @@ extern void mutex_release(int* mutex);
 extern void* spoon(int (*mips_main)(int, char**), int argc, char* argv[]);
 extern void mutex_init(int* mutex);
 extern void wait_thread(void* thread);
-
+extern void write_chars_LED(char first, char second);

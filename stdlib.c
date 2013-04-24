@@ -30,3 +30,21 @@ int strcmp(char* old, char* new) {
 	return 1;
 }
 
+int atoi(char* string) {
+	int length = len(string);
+	int retVal = 0;
+	char number;
+	int i = 0;
+	if(length < 1) {
+		return 0;
+	}
+	do {
+		number = string[i];
+		number -= '0';
+		retVal *= 10;
+		retVal += number;
+		i++;
+	} while(i < length);
+	return retVal;
+}
+

@@ -17,16 +17,13 @@ struct raw_index {
 	rawentry_t entries[31];
 };
 
-char data[1024];
-
 int read_index(struct raw_index* index) {
-	if(read_sector(0, (void*) data) != 1) {
+	if(read_sector(0, (void*) index) != 1) {
 		return 0;
 	}
-	if(read_sector(512, (void*) (data + 512)) != 1) {
+	if(read_sector(512, (void*) (((char*)index) + 512)) != 1) {
 		return 0;
 	}
-	*index = *((struct raw_index*) data);
 	return 1;
 }
 

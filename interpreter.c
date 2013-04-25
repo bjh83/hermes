@@ -4,6 +4,7 @@
 
 extern int say_main(int argc, char* argv[]);
 extern int ls_main(int argc, char* argv[]);
+extern int cat_main(int argc, char* argv[]);
 
 char command[32];
 
@@ -29,6 +30,8 @@ void interpret(char* statement) {
 		thread = spoon(&say_main, 1, &statement);
 	} else if(strcmp(command, "ls")) {
 		thread = spoon(&ls_main, 0, NULL);
+	} else if(strcmp(command, "cat")) {
+		thread = spoon(&cat_main, 1, &statement);
 	}
 	if(thread != NULL) {
 		wait_thread(thread);

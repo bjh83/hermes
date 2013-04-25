@@ -38,6 +38,8 @@ extern void* sbreak(int size);
 extern void byebye();
 extern void print_char(char value);
 extern char read_char();
+extern int open(char* file_name);
+extern int read(int file_descr, void* buffer, int length);
 extern void exit_2(int error);
 extern void yield();
 extern void mutex_aquire(int* mutex);

@@ -152,6 +152,36 @@ char read_char() {
 	return value;
 }
 
+int open(char* file_name) {
+	int file_desc;
+	asm(
+			"addi $a0, %1, 0x0\n"
+			"li $v0, 13\n"
+			"syscall\n"
+			"addi %0, $v0, 0x0\n"
+			: "=r" (file_desc)
+			: "r" (file_name)
+			: "%a0", "%v0"
+	   );
+	return file_desc;
+}
+
+int read(int file_descr, void* buffer, int length) {
+	int amount_read;
+	asm(
+			"addi $a0, %1, 0x0\n"
+			"addi $a1, %2, 0x0\n"
+			"addi $a2, %3, 0x0\n"
+			"syscall\n"
+			"li $v0, 14\n"
+			"addi %0, $v0, 0x0\n"
+			: "=r" (amount_read)
+			: "r" (file_descr), "r" (buffer), "r" (length)
+			: "$a0", "$a1", "$a2", "$v0"
+	   );
+	return amount_read;
+}
+
 void exit_2(int error) {
 	asm(
 			"addi $a0, %0, 0x0\n"

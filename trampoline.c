@@ -191,7 +191,7 @@ int close(int file_descr) {
 			"addi %0, $v0, 0x0\n"
 			: "=r" (success)
 			: "r" (file_descr)
-			: "$a0", "$v0"
+			: "%a0", "%v0"
 	   );
 	return success;
 }

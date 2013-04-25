@@ -172,12 +172,12 @@ int read(int file_descr, void* buffer, int length) {
 			"addi $a0, %1, 0x0\n"
 			"addi $a1, %2, 0x0\n"
 			"addi $a2, %3, 0x0\n"
-			"syscall\n"
 			"li $v0, 14\n"
+			"syscall\n"
 			"addi %0, $v0, 0x0\n"
 			: "=r" (amount_read)
 			: "r" (file_descr), "r" (buffer), "r" (length)
-			: "$a0", "$a1", "$a2", "$v0"
+			: "%a0", "%a1", "%a2", "%v0"
 	   );
 	return amount_read;
 }

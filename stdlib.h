@@ -3,3 +3,4 @@ extern void copy(char* old, char* new);
 extern int strcmp(char* old, char* new);
 extern int atoi(char* string);
 
+#define NULL 0

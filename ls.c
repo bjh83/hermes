@@ -37,8 +37,8 @@ int ls_main(int argc, char* argv[]) {
 		return 1;
 	}
 	int i;
-	for(i = 0; i < index->entry_number; i++) {
-		print_string(index->entries[i].name);
+	for(i = 0; i < index.entry_number; i++) {
+		print_string(index.entries[i].name);
 		print_string("\r\n");
 	}
 	return 0;

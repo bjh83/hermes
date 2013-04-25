@@ -271,3 +271,18 @@ void write_chars_LED(char first, char second) {
 	   );
 }
 
+int read_sector(int address, void* data) {
+	int success;
+	asm(
+			"addi $a0, %1, 0x0\n"
+			"addi $a1, %2, 0x0\n"
+			"li $v0, 25\n"
+			"syscall\n"
+			"addi %0, $v0, 0x0\n"
+			: "=r" (success)
+			: "r" (address), "r" (data)
+			: "%a0", "%a1", "%v0"
+	   );
+	return success;
+}
+

@@ -3,6 +3,7 @@
 #include"blink.h"
 
 extern int say_main(int argc, char* argv[]);
+extern int ls_main(int argc, char* argv[]);
 
 char command[32];
 
@@ -21,11 +22,16 @@ char* load_command(char* statement) {
 
 void interpret(char* statement) {
 	statement = load_command(statement);
+	void* thread = NULL;
 	if(strcmp(command, "blink")) {
-		void* thread = spoon(&blink_main, 1, &statement);
-		wait_thread(thread);
+		thread = spoon(&blink_main, 1, &statement);
 	} else if(strcmp(command, "say")) {
-		void* thread = spoon(&say_main, 1, &statement);
+		thread = spoon(&say_main, 1, &statement);
+	} else if(strcmp(command, "ls")) {
+		thread = spoon(&ls_main, 0, NULL);
+	}
+	if(thread != NULL) {
+		wait_thread(thread);
 	}
 }
 

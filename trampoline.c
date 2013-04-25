@@ -287,9 +287,9 @@ void wait_thread(void* thread) {
 }
 
 void write_chars_LED(char first, char second) {
-	int to_pass = first;
+	int to_pass = second;
 	to_pass = to_pass << 8;
-	to_pass += second;
+	to_pass += first;
 
 	asm(
 			"addi $a0, %0, 0x0\n"

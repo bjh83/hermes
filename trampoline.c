@@ -182,6 +182,20 @@ int read(int file_descr, void* buffer, int length) {
 	return amount_read;
 }
 
+int close(int file_descr) {
+	int success;
+	asm(
+			"addi $a0, $1, 0x0\n"
+			"li $v0, 16\n"
+			"syscall\n"
+			"addi %0, $v0, 0x0\n"
+			: "=r" (success)
+			: "r" (file_descr)
+			: "$a0", "$v0"
+	   );
+	return success;
+}
+
 void exit_2(int error) {
 	asm(
 			"addi $a0, %0, 0x0\n"

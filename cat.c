@@ -16,11 +16,13 @@ int cat_main(int argc, char* argv[]) {
 		num_read = read(file, buffer, 32);
 		if(num_read == -1) {
 			print_string("Reading failed\r\n");
+			close(file);
 			return 1;
 		}
 		print_string(buffer);
 	} while(num_read == 32);
 	print_string("\r\n");
+	close(file);
 	return 0;
 }
 
